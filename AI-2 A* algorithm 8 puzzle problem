@@ -1,0 +1,89 @@
+import heapq
+import copy
+
+def heuristic(state, goal):
+    """Calculate the Manhattan distance Heuristic"""
+    distance = 0
+    for i in range(3):
+        for j in range(3):
+            if state[i][j] != 0:
+                x, y = divmod(goal.index(state[i][j]), 3)
+                distance += abs(x - i) + abs(y - j)
+    return distance
+
+def get_blank_position(state):
+    """Find the blank (zero) position"""
+    for i in range(3):
+        for j in range(3):
+            if state[i][j] == 0:
+                return i, j
+            
+def generate_moves(state):
+    """Generate possible moves from the current state"""
+    x, y = get_blank_position(state)
+    moves = []
+    directions = [(-1, 0, "Up"), (1, 0, "Down"), (0, -1, "Left"), (0, 1, "Right")]
+
+    for dx, dy, move in directions:
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < 3 and 0 <= ny < 3:
+            new_state = copy.deepcopy(state)
+            new_state[x][y], new_state[nx][ny] = new_state[nx][ny], new_state[x][y]
+            moves.append((new_state, move))
+    return moves  # Moved outside the loop
+
+def a_star(initial, goal):
+    """Solves the 8-puzzle problem using A* algorithm"""
+    goal_flat = sum(goal, [])
+    priority_queue = []
+    heapq.heappush(priority_queue, (0, initial, [], 0))
+    visited = set()
+
+    while priority_queue:
+        _, current, path, g_score = heapq.heappop(priority_queue)
+        if current == goal:
+            return path + [(current, "Goal")]
+        
+        state_tuple = tuple(map(tuple, current))
+        if state_tuple in visited:
+            continue
+        
+        visited.add(state_tuple)
+
+        for new_state, move in generate_moves(current):
+            new_g = g_score + 1
+            new_f = new_g + heuristic(new_state, goal_flat)
+            heapq.heappush(priority_queue, (new_f, new_state, path + [(current, move)], new_g))
+
+    return None  # After while loop
+
+def print_puzzle(state):
+    """Prints the 8-puzzle state in readable format"""
+    for row in state:
+        print(" ".join(str(num) if num != 0 else "_" for num in row))
+    print()
+
+def main():
+    initial = [
+        [1, 2, 3],
+        [5, 6, 4],
+        [7, 8, 0]
+    ]
+    goal = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 0]
+    ]
+
+    solution = a_star(initial, goal)
+
+    if solution:
+        print("Solution found! Steps:")
+        for step, (state, move) in enumerate(solution):
+            print(f"Step {step}: Move {move}")
+            print_puzzle(state)
+    else:
+        print("No solution found.")
+
+if __name__ == "__main__":
+    main()
