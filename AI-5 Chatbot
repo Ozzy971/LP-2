@@ -1,0 +1,61 @@
+import random
+
+class CustomerSupportChatbot:
+    def __init__(self):
+        self.greetings = ["hi", "hello", "hey", "greetings", "good morning", "good evening"]
+        self.support_keywords = ["product", "order", "technical issue", "reset password", "issue", "problem"]
+    
+    def greet(self):
+        return random.choice(["Hello! How can I assist you today?", "Hi there! How can I help you today?", "Greetings! How can I assist?"])
+    
+    def handle_input(self, user_input):
+        user_input = user_input.lower()  # Standardizing input to lowercase
+        
+        if any(greeting in user_input for greeting in self.greetings):
+            return self.greet()
+        
+        elif "product" in user_input:
+            return self.product_info()
+        
+        elif "order" in user_input:
+            return self.order_help()
+        
+        elif "technical issue" in user_input or "issue" in user_input:
+            return self.technical_support()
+        
+        elif "reset password" in user_input or "reset" in user_input:
+            return self.reset_password()
+        
+        elif "bye" in user_input:
+            return "Thank you for contacting Customer Support. Have a great day! 👋"
+        
+        else:
+            return "I'm sorry, I didn't fully understand. Could you please rephrase or ask about products, orders, or technical support?"
+    
+    def product_info(self):
+        return "Sure! We offer a variety of products. Could you please specify which product you're interested in?"
+    
+    def order_help(self):
+        return "I'd be happy to help you with your order! Can you provide your order number?"
+    
+    def technical_support(self):
+        return "Oh no! Let's fix that. Please describe the technical issue you're facing."
+    
+    def reset_password(self):
+        return "To reset your password, please go to the 'Forgot Password' section on our website. If you need further assistance, feel free to ask!"
+        
+    def start_chat(self):
+        print("🤖 Welcome to Customer Support Chatbot!")
+        print("You can greet me or ask about products, orders, or technical support.")
+        
+        while True:
+            user_input = input("You: ")
+            response = self.handle_input(user_input)
+            print(f"🤖 {response}")
+            if "great day" in response:
+                break
+
+# Example usage:
+if __name__ == "__main__":
+    chatbot = CustomerSupportChatbot()
+    chatbot.start_chat()
