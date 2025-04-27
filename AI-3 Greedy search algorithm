@@ -1,0 +1,126 @@
+import heapq
+
+#SELECTION SORT
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_index = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+    return arr
+
+#MINIMUM SPANNING TREE
+def prim_mst(graph):
+    mst = []
+    visited = set()
+    start_node = list(graph.keys())[0]
+    min_heap = [(0, start_node, None)]
+    while min_heap:
+        weight, node, parent = heapq.heappop(min_heap)
+        if node not in visited:
+            visited.add(node)
+            if parent is not None:
+                mst.append((parent, node, weight))
+            for neighbor, w in graph[node]:
+                if neighbor not in visited:
+                    heapq.heappush(min_heap, (w, neighbor, node))
+    return mst
+
+#DIJKSTRA'S ALGORITHM
+def dijkstra(graph, start):
+    shortest_paths = {node: float('inf') for node in graph}
+    shortest_paths[start] = 0
+    min_heap = [(0, start)]
+    while min_heap:
+        current_distance, current_node = heapq.heappop(min_heap)
+        if current_distance > shortest_paths[current_node]:
+            continue
+        for neighbor, weight in graph[current_node]:
+            distance = current_distance + weight
+            if distance < shortest_paths[neighbor]:
+                shortest_paths[neighbor] = distance
+                heapq.heappush(min_heap, (distance, neighbor))
+    return shortest_paths
+
+#JOB SCHEDULING
+def job_scheduling(jobs):
+    jobs.sort(key=lambda x: x[2], reverse=True)
+    max_deadline = max(job[1] for job in jobs)
+    schedule = [None] * max_deadline
+    total_profit = 0
+    for job in jobs:
+        for slot in range(job[1] - 1, -1, -1):
+            if schedule[slot] is None:
+                schedule[slot] = job[0]
+                total_profit += job[2]
+                break
+    return schedule, total_profit
+
+#MINIMUM SPANNING TREE USING KRUSKLA'S
+def kruskal_mst(edges, num_nodes):
+    edges.sort(key=lambda x: x[2])
+    parent = {i: i for i in range(num_nodes)}
+
+    def find(node):
+        if parent[node] != node:
+            parent[node] = find(parent[node])
+        return parent[node]
+
+    def union(node1, node2):
+        root1 = find(node1)
+        root2 = find(node2)
+        if root1 != root2:
+            parent[root1] = root2
+
+    mst = []
+    for u, v, weight in edges:
+        if find(u) != find(v):
+            union(u, v)
+            mst.append((u, v, weight))
+    return mst
+
+if __name__ == "__main__":
+    options = {
+        "1": ("Selection Sort", selection_sort),
+        "2": ("Prim's MST", prim_mst),
+        "3": ("Dijkstra's Shortest Path", dijkstra),
+        "4": ("Job Scheduling", job_scheduling),
+        "5": ("Kruskal's MST", kruskal_mst),
+        "6": ("Single-Source Shortest Path Problem (Dijkstra's)", dijkstra),
+        "7": ("Minimum Spanning Tree (Prim's)", prim_mst)
+    }
+
+    while True:
+        print("\nChoose an algorithm to perform:")
+        for key, (name, _) in options.items():
+            print(f"{key}. {name}")
+        print("8. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "8":
+            print("Exiting program.")
+            break
+        elif choice in options:
+            name, func = options[choice]
+            if choice == "1":
+                arr = list(map(int, input("Enter numbers for selection sort: ").split()))
+                print(f"{name} Output:", func(arr))
+            elif choice in ["2", "7"]:
+                graph = eval(input("Enter graph as dictionary for Prim's MST: "))
+                print(f"{name} Output:", func(graph))
+            elif choice in ["3", "6"]:
+                graph = eval(input("Enter graph as dictionary for Dijkstra's: "))
+                start = input("Enter start node: ")
+                print(f"{name} Output:", func(graph, start))
+            elif choice == "4":
+                jobs = eval(input("Enter jobs as list of tuples (job, deadline, profit): "))
+                print(f"{name} Output:", func(jobs))
+            elif choice == "5":
+                edges = eval(input("Enter edges as list of tuples (node1, node2, weight): "))
+                num_nodes = int(input("Enter number of nodes: "))
+                print(f"{name} Output:", func(edges, num_nodes))
+        else:
+            print("Invalid choice. Please try again.")
