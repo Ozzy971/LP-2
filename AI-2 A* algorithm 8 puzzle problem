@@ -2,7 +2,7 @@ import heapq
 import copy
 
 def heuristic(state, goal):
-    """Calculate the Manhattan distance Heuristic"""
+    """Calculate the Manhattan distance """
     distance = 0
     for i in range(3):
         for j in range(3):
@@ -28,7 +28,7 @@ def generate_moves(state):
             new_state = copy.deepcopy(state)
             new_state[x][y], new_state[nx][ny] = new_state[nx][ny], new_state[x][y]
             moves.append((new_state, move))
-    return moves  # Moved outside the loop
+    return moves 
 
 def a_star(initial, goal):
     goal_flat = sum(goal, [])
@@ -52,7 +52,7 @@ def a_star(initial, goal):
             new_f = new_g + heuristic(new_state, goal_flat)
             heapq.heappush(priority_queue, (new_f, new_state, path + [(current, move)], new_g))
 
-    return None  # After while loop
+    return None  
 
 def print_puzzle(state):
     for row in state:
