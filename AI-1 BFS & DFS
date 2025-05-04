@@ -6,7 +6,7 @@ from collections import deque
 def bfs(graph, start):
     visited = set()
     queue = deque([start])
-    bfs_result = []  # To store the BFS result
+    bfs_result = []  
 
     print("\nStarting BFS traversal:")
     while queue:
@@ -16,7 +16,6 @@ def bfs(graph, start):
             bfs_result.append(node)
             print(f"Visited: {node}")
 
-            # Queue the neighbors of the current node
             for neighbor in graph[node]:
                 if neighbor not in visited:
                     queue.append(neighbor)
@@ -27,7 +26,7 @@ def bfs(graph, start):
 def dfs(graph, start):
     visited = set()
     stack = [start]
-    dfs_result = []  # To store the DFS result
+    dfs_result = []  
 
     print("\nStarting DFS traversal:")
     while stack:
@@ -72,7 +71,6 @@ def visualize_graph(graph):
         for neighbor in neighbors:
             G.add_edge(node, neighbor)
 
-    # Draw the graph using matplotlib
     plt.figure(figsize=(8, 6))
     nx.draw(G, with_labels=True, node_color='skyblue', node_size=3000, 
             font_size=15, font_weight='bold', edge_color='gray')
