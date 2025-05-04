@@ -1,0 +1,42 @@
+application STUDENT DETAILS MANAGEMENT
+
+Step 1: Log into Salesforce Developer account.
+
+Step 2: Open Salesforce Lightning platform and click on Object Manager => Create => Custom
+Object.
+
+Step 3: Fill in the required fields and under Optional Features, select Allow Reports and Allow
+Activities. Click Save.
+
+Step 4: Now, Click on Fields & Relations => New.
+
+Step 5: Then select option “Email” and click Next-> Next -> Save.
+
+Step 6: Similarly. Repeat steps 4 and 5 to add more fields like Phone, Date of Birth. This is how
+the custom object will have the various fields.
+
+Step 7: Now go to Home => search for “Tabs”. Click on New.
+
+Step 8: Enter the Object name and select any icon for tab style. Leave all defaults as it is. Click
+Next, Next, and Save.
+
+Step 9: In Setup, click Home. Enter “App Manager” in Quick Find and select App Manager.
+Click New Lightning App.
+
+Step 10: Define the new Lightning app as follows:
+App Name: Student Details Manager
+Developer Name: Student_Details_Manager. Click Next.
+
+Step 11: On the App Options screen, leave the defaults as is and click Next. On the Utility Items
+screen, leave the defaults as is and click Next. On the Navigation Items screen, select
+Student_Detail and move them to the Selected Items box. Then click Next.
+
+Step 12: On the Assign to User Profiles screen, select System Administrator and move it to
+Selected Profiles. Then click Save & Finish.
+
+Step 13: Click on App launcher and Open the custom application created.
+
+Step 14: Click on Student_Details => New => fill the specified details and copy the URL.
+
+Step 15: Open Google Chrome new Tab => More Tools => Developer Tools and then paste the
+URL of the application, copied in the previous step.
