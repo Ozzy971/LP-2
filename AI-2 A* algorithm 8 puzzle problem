@@ -12,14 +12,12 @@ def heuristic(state, goal):
     return distance
 
 def get_blank_position(state):
-    """Find the blank (zero) position"""
     for i in range(3):
         for j in range(3):
             if state[i][j] == 0:
                 return i, j
             
 def generate_moves(state):
-    """Generate possible moves from the current state"""
     x, y = get_blank_position(state)
     moves = []
     directions = [(-1, 0, "Up"), (1, 0, "Down"), (0, -1, "Left"), (0, 1, "Right")]
@@ -33,7 +31,6 @@ def generate_moves(state):
     return moves  # Moved outside the loop
 
 def a_star(initial, goal):
-    """Solves the 8-puzzle problem using A* algorithm"""
     goal_flat = sum(goal, [])
     priority_queue = []
     heapq.heappush(priority_queue, (0, initial, [], 0))
@@ -58,7 +55,6 @@ def a_star(initial, goal):
     return None  # After while loop
 
 def print_puzzle(state):
-    """Prints the 8-puzzle state in readable format"""
     for row in state:
         print(" ".join(str(num) if num != 0 else "_" for num in row))
     print()
