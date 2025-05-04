@@ -1,0 +1,43 @@
+#apex programming
+
+public class LinearSearch {
+    public static void demo(Integer key){
+        System.debug('Linear Search');
+        integer s = -1;
+        list<integer> lon = new List<integer>();
+        lon.add(3);
+        lon.add(4);
+        lon.add(5);
+        lon.add(6);
+        System.debug('List:' +lon);
+        for(integer i = 0; i < lon.size(); i++)
+        {
+            if(key == lon[i])
+            {
+                s =  1;
+            }
+        }
+        if (s == 1)
+        {
+            System.debug('Element Found');
+        }
+        else{
+            System.debug('Element not found');
+        }
+    }
+
+}
+
+
+
+
+Steps of execution:
+Step 1: Login into Salesforce Developer account.
+Step 2: Open Salesforce Lightning platform. Select Setup => Developer Console
+Step 3: Now, create new Apex Class, File => New => Apex Class. Enter the name of class and click OK.
+Step 4: Write the logic in the new class created using Apex Programming language.
+Step 5: Click on Save.
+Step 6: On the developer Console, click on Debug => Open Execute Anonymous Window.
+Step 7: Type the following code, in the window below. Enter your Email id in the address field.
+Step 8: Click on Execute. Check the execution status.
+
