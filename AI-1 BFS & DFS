@@ -22,26 +22,6 @@ def bfs(graph, start):
             print(f"Queue after visiting {node}: {list(queue)}")
     return bfs_result
 
-# DFS FUNCTION
-def dfs(graph, start):
-    visited = set()
-    stack = [start]
-    dfs_result = []  
-
-    print("\nStarting DFS traversal:")
-    while stack:
-        node = stack.pop()
-        if node not in visited:
-            visited.add(node)
-            dfs_result.append(node)
-            print(f"Visited: {node}")
-
-            # Push the neighbors to the stack (in reverse order for correct traversal)
-            for neighbor in reversed(graph[node]):
-                if neighbor not in visited:
-                    stack.append(neighbor)
-            print(f"Stack after visiting {node}: {list(stack)}")
-    return dfs_result
 
 # FUNCTION TO CREATE A GRAPH
 def input_graph():
@@ -79,7 +59,7 @@ def visualize_graph(graph):
 
 # MAIN FUNCTION
 if __name__ == "__main__":
-    print("Graph Traversal Program (BFS and DFS)")
+    print("Graph Traversal Program (BFS)")
 
     # Input graph from the user
     graph = input_graph()
@@ -91,12 +71,8 @@ if __name__ == "__main__":
     visualize_graph(graph)
 
     # Starting node input
-    start_node = input("Enter the starting node for BFS and DFS: ")
+    start_node = input("Enter the starting node for BFS: ")
 
     # BFS and result
     bfs_result = bfs(graph, start_node)
     print(f"\nFinal BFS Traversal Order: {bfs_result}")
-
-    # DFS and result
-    dfs_result = dfs(graph, start_node)
-    print(f"\nFinal DFS Traversal Order: {dfs_result}")
