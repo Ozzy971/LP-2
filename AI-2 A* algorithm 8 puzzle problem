@@ -39,7 +39,7 @@ def a_star(initial, goal):
     while priority_queue:
         _, current, path, g_score = heapq.heappop(priority_queue)
         if current == goal:
-            return path + [(current, "Goal")]
+            return path + [(current, "Up")]
         
         state_tuple = tuple(map(tuple, current))
         if state_tuple in visited:
