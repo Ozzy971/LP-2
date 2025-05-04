@@ -4,47 +4,37 @@ import numpy as np
 class NQueens:
     def __init__(self, n):
         self.n = n
-        self.board = [-1] * n  # -1 indicates no queen is placed in that row
+        self.board = [-1] * n 
 
     def is_safe(self, row, col):
-        """
-        Check if placing a queen at (row, col) is safe from other queens.
-        A queen is safe if no other queen is in the same column or diagonals.
-        """
         for prev_row in range(row):
             if self.board[prev_row] == col or abs(self.board[prev_row] - col) == abs(prev_row - row):
                 return False
         return True
 
     def solve_backtracking(self, row=0):
-        """
-        Solve the N-Queens problem using backtracking and visualize each step.
-        """
         if row == self.n:
-            self.visualize_board()  # Visualize the solution when all queens are placed
+            self.visualize_board()  /
             return True
 
         for col in range(self.n):
             if self.is_safe(row, col):
-                self.board[row] = col  # Place queen
-                self.visualize_board()  # Visualize after placing
+                self.board[row] = col  
+                self.visualize_board()  
                 if self.solve_backtracking(row + 1):
                     return True
-                self.board[row] = -1  # Remove queen (backtrack)
-                self.visualize_board()  # Visualize after backtracking
+                self.board[row] = -1  
+                self.visualize_board()  
 
-        return False  # No solution found in this path
+        return False  
 
     def visualize_board(self):
-        """
-        Visualize the current board using matplotlib.
-        """
         grid = np.zeros((self.n, self.n))
         for row in range(self.n):
             if self.board[row] != -1:
                 grid[row, self.board[row]] = 1
 
-        plt.clf()  # Clear previous plot
+        plt.clf()  
         fig, ax = plt.subplots(figsize=(5, 5))
         ax.matshow(grid, cmap="Blues", alpha=0.5)
 
@@ -63,13 +53,13 @@ class NQueens:
         ax.set_yticklabels([])
         ax.set_title(f"N-Queens Step-by-Step ({self.n}x{self.n})", fontsize=14)
 
-        plt.pause(1)  # Pause for 1 second
+        plt.pause(1)  
 
-# --- Example usage ---
+
 if __name__ == "__main__":
-    n = 4  # Size of board (you can change it)
+    n = 4  
     nqueens = NQueens(n)
-    plt.ion()  # Turn on interactive mode for real-time plotting
-    nqueens.solve_backtracking()  # Start solving
-    plt.ioff()  # Turn off interactive mode
-    plt.show()  # Show final board
+    plt.ion() 
+    nqueens.solve_backtracking()  
+    plt.ioff()  
+    plt.show()  
